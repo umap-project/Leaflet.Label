@@ -1,11 +1,30 @@
-L.Label = L.Popup.extend({
 
+// 🍂class Label
+// 🍂inherits Popup
+
+L.Label = L.Popup.extend({
+    // 🍂section
+    // 🍂aka Label options
     options: {
         pane: 'labelPane',
         offset: [6, -6],
+
+        // 🍂option direction: String = 'auto'
+        // Where to display the label relative to the layer it belongs to. Valid
+        // values are: `'auto'`, `'left'`, `'right'`, `'top'`, `'bottom'` and `'center'`.
         direction: 'auto',
+
+        // 🍂option permanent: Boolean = false
+        // When `false`, the label will be shown only on mouse hover. When `true` it
+        // will be always shown.
         permanent: false,
+
+        // 🍂option sticky: Boolean = false
+        // When `true`, the label will follow the mouse position when hovering
         sticky: false,
+
+        // 🍂option interactive: Boolean = false
+        // Whether the label receives [mouse events](#marker-event).
         interactive: false,
         opacity: 0.8
     },
@@ -27,12 +46,19 @@ L.Label = L.Popup.extend({
         this.update();
         L.DomUtil.setOpacity(this._container, this.options.opacity);
         this.bringToFront();
+
+        // 🍂namespace Map
+        // 🍂section Label events
+        // 🍂event labelopen: LabelEvent
+        // Fired when a `Label` is added (shown) in the map
         map.fire('labelopen', {label: this});
         if (this._source) this._source.fire('labelopen', {label: this}, true);
     },
 
     onRemove: function (map) {
         L.DomUtil.remove(this._container);
+        // 🍂event labelclose: LabelEvent
+        // Fired when a `Label` is removed (hidden) in the map
         map.fire('labelclose', {label: this});
         if (this._source) this._source.fire('labelclose', {label: this}, true);
     },
@@ -107,12 +133,23 @@ L.Label = L.Popup.extend({
 
 });
 
+// 🍂class Label
+// 🍂factory L.label(options?: Label options, source?: Layer)
+// Instantiates a new `Label` object given its options and the `Layer` this label
+// belongs to.
 L.label = function (options, source) {
     return new L.Label(options, source);
 };
 
+// 🍂namespace Map
+// 🍂section Methods for Layers and Controls
 L.Map.include({
 
+    // 🍂method openLabel(label: Label): this
+    // Opens the specified label.
+    // 🍂alternative
+    // 🍂method openLabel(content: String|HTMLElement, latlng: LatLng, options?: Label options): this
+    // Creates a label with the specified content and options and open it.
     openLabel: function (label, latlng, options) {
         if (!(label instanceof L.Label)) label = new L.Label(options).setContent(label);
         if (latlng) label.setLatLng(latlng);
@@ -120,6 +157,8 @@ L.Map.include({
         return this.addLayer(label);
     },
 
+    // 🍂method closeLabel(label: Label): this
+    // Closes the given label.
     closeLabel: function (label) {
         if (label) this.removeLayer(label);
         return this;
@@ -128,11 +167,20 @@ L.Map.include({
 });
 
 L.Map.addInitHook(function () {
+    // 🍂pane labelPane = 650
+    // Pane for `Label`s.
     this._labelPane = this.createPane('labelPane');
 });
 
+
+// 🍂namespace Layer
+// 🍂section Label methods
 L.Layer.include({
 
+    // 🍂method bindLabel(content: String|HTMLElement|Function|Label, options?: Label options): this
+    // Binds a label to the layer with the passed `content` and sets up the
+    // neccessary event listeners. If a `Function` is passed it will receive
+    // the layer as the first argument and should return a `String` or `HTMLElement`.
     bindLabel: function (content, options) {
 
         if (content instanceof L.Label) {
@@ -152,6 +200,8 @@ L.Layer.include({
         return this;
     },
 
+    // 🍂method unbindLabel(): this
+    // Removes the label previously bound with `bindLabel`.
     unbindLabel: function () {
         if (this._label) {
             this._initLabelInteractions(true);
@@ -178,6 +228,8 @@ L.Layer.include({
         this._labelHandlersAdded = !remove;
     },
 
+    // 🍂method openLabel(latlng?: LatLng): this
+    // Opens the bound label at the specificed `latlng` or at the default label anchor if no `latlng` is passed.
     openLabel: function (layer, latlng) {
         if (!(layer instanceof L.Layer)) {
             latlng = layer;
@@ -213,6 +265,8 @@ L.Layer.include({
         return this;
     },
 
+    // 🍂method closeLabel(): this
+    // Closes the label bound to this layer if it is open.
     closeLabel: function () {
         if (this._label) {
             this._label._close();
@@ -226,6 +280,8 @@ L.Layer.include({
         return this;
     },
 
+    // 🍂method toggleLabel(): this
+    // Opens or closes the label bound to this layer depending on its current state.
     toggleLabel: function (target) {
         if (this._label) {
             if (this._label._map) this.closeLabel();
@@ -234,15 +290,21 @@ L.Layer.include({
         return this;
     },
 
+    // 🍂method isLabelOpen(): boolean
+    // Returns `true` if the label bound to this layer is currently open.
     isLabelOpen: function () {
         return this._label.isOpen();
     },
 
+    // 🍂method setLabelContent(content: String|HTMLElement|Label): this
+    // Sets the content of the label bound to this layer.
     setLabelContent: function (content) {
         if (this._label) this._label.setContent(content);
         return this;
     },
 
+    // 🍂method getLabel(): Label
+    // Returns the label bound to this layer.
     getLabel: function () {
         return this._label;
     },
@@ -272,6 +334,18 @@ L.Marker.include({
     }
 });
 
+// 🍂namespace Icon
 L.Icon.Default.mergeOptions({
+    // 🍂option labelAnchor
+    // The coordinates of the point from which labels will "open", relative to the icon anchor.
     labelAnchor: [12, -28],
 });
+
+
+/*
+🍂namespace Event objects
+🍂miniclass LabelEvent (Event objects)
+🍂inherits Event
+🍂property label: Label
+The label that was opened or closed.
+*/
