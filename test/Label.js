@@ -34,7 +34,7 @@ describe('Label', function () {
 	});
 
 	afterEach(function () {
-		// document.body.removeChild(c);
+		document.body.removeChild(c);
 	});
 
 	it("opens on marker mouseover and close on mouseout", function () {
