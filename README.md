@@ -2,6 +2,8 @@
 
 Leaflet.Label reboot.
 
+[Demo](http://umap-project.github.io/Leaflet.Label/).
+
 Includes:
 
 - Leaflet 1.0.0 support
