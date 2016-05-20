@@ -6,7 +6,7 @@ Includes:
 
 - Leaflet 1.0.0 support
 - polygons and polylines support
-- top and bottom label direction
+- center, top and bottom label direction
 
 May eventually be included in core, see https://github.com/Leaflet/Leaflet/pull/3952
 
@@ -24,7 +24,7 @@ May eventually be included in core, see https://github.com/Leaflet/Leaflet/pull/
 
 ## Options
 
-- **direction**=auto *auto, left, right, top, bottom* Where to display the label relatively to the feature.
+- **direction**=auto *auto, left, right, top, bottom, center* Where to display the label relatively to the feature.
 - **offset**=[6, 6] *[x, y]* Offset of the label relatively to the feature center point.
 - **permanent**=false *boolean* Always visible, or only on mouse over.
 - **sticky**=false *boolean* Follow the mouse instead of being fixed at the center.
