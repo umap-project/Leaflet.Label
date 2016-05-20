@@ -1,0 +1,31 @@
+{
+  "name": "leaflet.label",
+  "version": "0.0.1",
+  "description": "Leaflet.Label reboot",
+  "main": "src/Leaflet.Label.js",
+  "scripts": {
+    "test": "./node_modules/mocha-phantomjs/bin/mocha-phantomjs test/index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yohanboniface/Leaflet.Label.git"
+  },
+  "keywords": [
+    "leaflet",
+    "label"
+  ],
+  "author": "Yohan Boniface",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yohanboniface/Leaflet.Label/issues"
+  },
+  "homepage": "https://github.com/yohanboniface/Leaflet.Label#readme",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "happen": "^0.3.1",
+    "leaflet": "^1.0.0-rc.1",
+    "mocha": "^2.4.5",
+    "mocha-phantomjs": "^4.0.2",
+    "sinon": "^1.17.4"
+  }
+}
