@@ -30,5 +30,5 @@ May eventually be included in core, see https://github.com/Leaflet/Leaflet/pull/
 - **offset**=[6, 6] *[x, y]* Offset of the label relatively to the feature center point.
 - **permanent**=false *boolean* Always visible, or only on mouse over.
 - **sticky**=false *boolean* Follow the mouse instead of being fixed at the center.
-- **interactve**=false **boolean** Receive mouse events just like the feature it is attached to.
-- **opacity**=0.8 **float** Opacity of the label, between 0 and 1.
+- **interactive**=false *boolean* Receive mouse events just like the feature it is attached to.
+- **opacity**=0.8 *float* Opacity of the label, between 0 and 1.
